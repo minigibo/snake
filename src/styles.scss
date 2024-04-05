@@ -1,0 +1,86 @@
+@use "./variables" as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100%;
+  width: 100%;
+  background-color: $background-color;
+  font-family: $font-body;
+
+  .score {
+    padding: 10px;
+    text-align: right;
+    font-size: 2rem;
+    color: $text-color;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .play {
+    color: $text-color;
+    font-weight: bolder;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+    font-size: 3rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .gameGrid {
+    // background-image: url("https://cdn.tutsplus.com/cdn-cgi/image/width=480/mobile/uploads/legacy/Corona-SDK_Build-A-Snake-Game/1/6.png");
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    border: 1px solid black;
+    overflow: hidden;
+  }
+
+  .snakeSegment {
+    background-color: green;
+  }
+
+  .snakeHead {
+    background-color: $text-color;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+
+    kbd {
+      background-color: #eee;
+      border-radius: 2px;
+      border: 1px solid #afabab;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+        0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
+      color: #333;
+      font-size: 1em;
+      font-weight: bold;
+      line-height: 1;
+      padding: 3px 5px;
+    }
+  }
+}
