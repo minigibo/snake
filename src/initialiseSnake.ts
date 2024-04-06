@@ -20,3 +20,16 @@ export const initialiseSnake = (numColumns: number, initialDirection: keys) => {
 
   return { snakeSegments, currentDirection: initialDirection };
 };
+
+export const handleSpaceKey = () => {
+  document.addEventListener("keydown", (event: KeyboardEvent) => {
+    switch (event.keyCode) {
+      case keys.SPACE:
+        const playDiv = document.querySelector(".play") as HTMLElement;
+        if (playDiv) {
+          playDiv.style.display = "none";
+        }
+        break;
+    }
+  });
+};
