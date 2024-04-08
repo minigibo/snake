@@ -1,4 +1,5 @@
 import { keys } from "./keys";
+import { startSnakeMovement } from "./movement";
 
 export const initialiseSnake = (numColumns: number, initialDirection: keys) => {
   const initialX = 0;
@@ -18,18 +19,23 @@ export const initialiseSnake = (numColumns: number, initialDirection: keys) => {
     cell.classList.add("snakeSegment");
   });
 
-  return { snakeSegments, currentDirection: initialDirection };
+  startGame(numColumns, initialDirection);
 };
 
 export const handleSpaceKey = () => {
   document.addEventListener("keydown", (event: KeyboardEvent) => {
     switch (event.keyCode) {
       case keys.SPACE:
-        const playDiv = document.querySelector(".play") as HTMLElement;
-        if (playDiv) {
-          playDiv.style.display = "none";
-        }
+        startGame(22, keys.RIGHT);
         break;
     }
   });
+};
+
+const startGame = (numColumns: number, initialDirection: keys) => {
+  const playDiv = document.querySelector(".play") as HTMLElement;
+  if (playDiv) {
+    playDiv.style.display = "none";
+    startSnakeMovement(initialDirection, numColumns);
+  }
 };
