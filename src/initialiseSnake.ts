@@ -1,7 +1,7 @@
 import { keys } from "./keys";
 import { startSnakeMovement } from "./movement";
 
-export const initialiseSnake = (numColumns: number, initialDirection: keys) => {
+export const initialiseSnake = (numColumns: number) => {
   const initialX = 0;
   const initialY = 3;
   const snakeLength = 3;
@@ -19,7 +19,7 @@ export const initialiseSnake = (numColumns: number, initialDirection: keys) => {
     cell.classList.add("snakeSegment");
   });
 
-  startGame(numColumns, initialDirection);
+  handleSpaceKey();
 };
 
 export const handleSpaceKey = () => {

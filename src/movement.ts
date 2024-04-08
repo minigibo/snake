@@ -6,6 +6,9 @@ let snakeSegments: { x: number; y: number }[] = [];
 let numColumns: number;
 
 export const startSnakeMovement = (initialDirection: keys, columns: number) => {
+  if (intervalId !== null) {
+    clearInterval(intervalId);
+  }
   currentDirection = initialDirection;
   numColumns = columns;
 
