@@ -14,6 +14,6 @@ export const addFruit = () => {
 
   const fruitImage = document.createElement("img");
   fruitImage.src = "./Banana.png";
-  fruitImage.classList.add("fruit");
+  gridCells[randomCellIndex].classList.add("fruit");
   gridCells[randomCellIndex].appendChild(fruitImage);
 };
