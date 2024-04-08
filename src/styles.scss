@@ -39,13 +39,14 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .gameGrid {
-    // background-image: url("https://cdn.tutsplus.com/cdn-cgi/image/width=480/mobile/uploads/legacy/Corona-SDK_Build-A-Snake-Game/1/6.png");
+    background-image: url("https://cdn.tutsplus.com/cdn-cgi/image/width=480/mobile/uploads/legacy/Corona-SDK_Build-A-Snake-Game/1/6.png");
     position: absolute;
     top: 10%;
     left: 10%;
