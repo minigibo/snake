@@ -6,6 +6,7 @@ let currentDirection: keys | null = null;
 let snakeSegments: { x: number; y: number }[] = [];
 let numColumns: number;
 let score = 0;
+let intervalDuration = 200;
 
 export const startSnakeMovement = (initialDirection: keys, columns: number) => {
   if (intervalId !== null) {
@@ -24,7 +25,7 @@ export const startSnakeMovement = (initialDirection: keys, columns: number) => {
     snakeSegments.push({ x: initialX + i, y: initialY });
   }
 
-  intervalId = setInterval(moveSnake, 200);
+  intervalId = setInterval(moveSnake, intervalDuration);
 
   document.addEventListener("keydown", handleKeyPress);
 };
@@ -74,7 +75,6 @@ const moveSnake = () => {
   }
   const fruitPos = fruitPosition();
   if (fruitPos && newHead.x === fruitPos.x && newHead.y === fruitPos.y) {
-    console.log("fruit hit");
     snakeSegments.unshift({ x: fruitPos.x, y: fruitPos.y });
     removeFruit();
     increaseScore();
@@ -82,6 +82,9 @@ const moveSnake = () => {
     snakeSegments.unshift(newHead);
     snakeSegments.pop();
     updateSnakeDisplay();
+    intervalDuration -= 5;
+    clearInterval(intervalId!);
+    intervalId = setInterval(moveSnake, intervalDuration);
   } else {
     snakeSegments.unshift(newHead);
     snakeSegments.pop();
@@ -134,5 +137,10 @@ const updateScoreDisplay = () => {
 
 const increaseScore = () => {
   score += 1;
+  updateScoreDisplay();
+};
+
+export const resetScore = () => {
+  score = 0;
   updateScoreDisplay();
 };

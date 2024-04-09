@@ -1,5 +1,5 @@
 import { keys } from "./keys";
-import { startSnakeMovement } from "./movement";
+import { startSnakeMovement, resetScore } from "./movement";
 
 export const initialiseSnake = (numColumns: number) => {
   const initialX = 0;
@@ -27,6 +27,7 @@ export const handleSpaceKey = () => {
     switch (event.keyCode) {
       case keys.SPACE:
         startGame(22, keys.RIGHT);
+        resetScore();
         break;
     }
   });
