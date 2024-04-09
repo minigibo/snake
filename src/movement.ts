@@ -142,5 +142,6 @@ const increaseScore = () => {
 
 export const resetScore = () => {
   score = 0;
+  intervalDuration = 200;
   updateScoreDisplay();
 };
