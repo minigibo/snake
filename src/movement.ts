@@ -1,4 +1,5 @@
 import { keys } from "./keys";
+import { addFruit } from "./fruit";
 
 let intervalId: number | null = null;
 let currentDirection: keys | null = null;
@@ -70,12 +71,15 @@ const moveSnake = () => {
       newHead.y += 1;
       break;
   }
-
-  snakeSegments.unshift(newHead);
-
-  snakeSegments.pop();
-
-  updateSnakeDisplay();
+  if (isFruitCollision(newHead)) {
+    growSnake(newHead);
+    removeFruit();
+    addFruit();
+  } else {
+    snakeSegments.unshift(newHead);
+    snakeSegments.pop();
+    updateSnakeDisplay();
+  }
 };
 
 const updateSnakeDisplay = () => {
@@ -87,4 +91,23 @@ const updateSnakeDisplay = () => {
     const cell = gridCells[cellIndex] as HTMLElement;
     cell.classList.add("snakeSegment");
   });
+};
+
+const isFruitCollision = (head: { x: number; y: number }) => {
+  const gridCell = document.querySelector(
+    `.gridCell[data-x='${head.x}'][data-y='${head.y}']`
+  );
+  return gridCell?.classList.contains("fruit");
+};
+
+const growSnake = (newHead: { x: number; y: number }) => {
+  snakeSegments.unshift(newHead);
+};
+
+const removeFruit = () => {
+  const fruitCell = document.querySelector(".gridCell.fruit");
+  if (fruitCell) {
+    fruitCell.classList.remove("fruit");
+    fruitCell.innerHTML = "";
+  }
 };
