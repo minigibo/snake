@@ -186,9 +186,11 @@ const gameEnded = () => {
   const playDiv = document.querySelector(".play") as HTMLElement;
   if (playDiv) {
     playDiv.style.display = "flex";
+    playDiv.style.flexDirection = "column";
     playDiv.textContent = `Snake-ception achieved! Your score: ${score}`;
     clearInterval(intervalId!);
     document.addEventListener("keydown", handleSpaceKey);
     intervalDuration = 200;
+    playDiv.insertAdjacentHTML("beforeend", "<p>Press space to play again</p>");
   }
 };
