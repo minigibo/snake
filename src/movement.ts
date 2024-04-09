@@ -1,4 +1,5 @@
 import { keys } from "./keys";
+import { addFruit } from "./fruit";
 
 let intervalId: number | null = null;
 let currentDirection: keys | null = null;
@@ -73,6 +74,9 @@ const moveSnake = () => {
   const fruitPos = fruitPosition();
   if (fruitPos && newHead.x === fruitPos.x && newHead.y === fruitPos.y) {
     console.log("fruit hit");
+    snakeSegments.unshift({ x: fruitPos.x, y: fruitPos.y });
+    removeFruit();
+    addFruit(numColumns);
     snakeSegments.unshift(newHead);
     snakeSegments.pop();
     updateSnakeDisplay();
@@ -108,5 +112,13 @@ export const fruitPosition = () => {
     return { x: fruitPositionX, y: fruitPositionY };
   } else {
     return null;
+  }
+};
+
+export const removeFruit = () => {
+  const fruitCell = document.querySelector(".gridCell.fruit");
+  if (fruitCell) {
+    fruitCell.classList.remove("fruit");
+    fruitCell.innerHTML = "";
   }
 };
