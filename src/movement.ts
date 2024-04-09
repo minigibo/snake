@@ -5,6 +5,7 @@ let intervalId: number | null = null;
 let currentDirection: keys | null = null;
 let snakeSegments: { x: number; y: number }[] = [];
 let numColumns: number;
+let score = 0;
 
 export const startSnakeMovement = (initialDirection: keys, columns: number) => {
   if (intervalId !== null) {
@@ -76,6 +77,7 @@ const moveSnake = () => {
     console.log("fruit hit");
     snakeSegments.unshift({ x: fruitPos.x, y: fruitPos.y });
     removeFruit();
+    increaseScore();
     addFruit(numColumns);
     snakeSegments.unshift(newHead);
     snakeSegments.pop();
@@ -115,10 +117,22 @@ export const fruitPosition = () => {
   }
 };
 
-export const removeFruit = () => {
+const removeFruit = () => {
   const fruitCell = document.querySelector(".gridCell.fruit");
   if (fruitCell) {
     fruitCell.classList.remove("fruit");
     fruitCell.innerHTML = "";
   }
+};
+
+const updateScoreDisplay = () => {
+  const scoreElement = document.querySelector(".score");
+  if (scoreElement) {
+    scoreElement.textContent = `SCORE: ${score}`;
+  }
+};
+
+const increaseScore = () => {
+  score += 1;
+  updateScoreDisplay();
 };
