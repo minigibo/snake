@@ -1,4 +1,4 @@
-export const addFruit = () => {
+export const addFruit = (numColumns: number) => {
   const gridCells = document.querySelectorAll(".gridCell");
 
   const availableCells: number[] = [];
@@ -14,6 +14,12 @@ export const addFruit = () => {
 
   const fruitImage = document.createElement("img");
   fruitImage.src = "./Banana.png";
-  gridCells[randomCellIndex].classList.add("fruit");
-  gridCells[randomCellIndex].appendChild(fruitImage);
+  const fruitCell = gridCells[randomCellIndex] as HTMLElement;
+  fruitCell.classList.add("fruit");
+  fruitCell.appendChild(fruitImage);
+  fruitCell.setAttribute("data-x", (randomCellIndex % numColumns).toString());
+  fruitCell.setAttribute(
+    "data-y",
+    Math.floor(randomCellIndex / numColumns).toString()
+  );
 };
