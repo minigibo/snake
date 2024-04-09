@@ -8,6 +8,26 @@ let numColumns: number;
 let score = 0;
 let intervalDuration = 200;
 
+export const handleSpaceKey = () => {
+  document.addEventListener("keydown", (event: KeyboardEvent) => {
+    switch (event.keyCode) {
+      case keys.SPACE:
+        startGame(22, keys.RIGHT);
+        resetScore();
+        document.removeEventListener("keydown", handleSpaceKey);
+        break;
+    }
+  });
+};
+
+const startGame = (numColumns: number, initialDirection: keys) => {
+  const playDiv = document.querySelector(".play") as HTMLElement;
+  if (playDiv) {
+    playDiv.style.display = "none";
+    startSnakeMovement(initialDirection, numColumns);
+  }
+};
+
 export const startSnakeMovement = (initialDirection: keys, columns: number) => {
   if (intervalId !== null) {
     clearInterval(intervalId);
@@ -148,13 +168,27 @@ export const resetScore = () => {
 };
 
 const headBodyCollision = () => {
+  if (snakeSegments.length <= 3) {
+    return false;
+  }
+
   const head = snakeSegments[0];
   const body = snakeSegments.slice(1);
 
   for (const segment of body) {
     if (head.x === segment.x && head.y === segment.y) {
-      console.log("head hit body");
+      gameEnded();
     }
   }
-  return false;
+};
+
+const gameEnded = () => {
+  const playDiv = document.querySelector(".play") as HTMLElement;
+  if (playDiv) {
+    playDiv.style.display = "flex";
+    playDiv.textContent = `Snake-ception achieved! Your score: ${score}`;
+    clearInterval(intervalId!);
+    document.addEventListener("keydown", handleSpaceKey);
+    intervalDuration = 200;
+  }
 };

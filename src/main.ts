@@ -1,8 +1,7 @@
 import "./styles.scss";
 import { createGrid } from "./grid";
-import { handleSpaceKey } from "./initialiseSnake";
 import { addFruit } from "./fruit";
-import { fruitPosition } from "./movement";
+import { fruitPosition, handleSpaceKey } from "./movement";
 
 createGrid();
 handleSpaceKey();
