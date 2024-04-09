@@ -89,6 +89,7 @@ const moveSnake = () => {
     snakeSegments.unshift(newHead);
     snakeSegments.pop();
     updateSnakeDisplay();
+    headBodyCollision();
   }
 };
 
@@ -144,4 +145,16 @@ export const resetScore = () => {
   score = 0;
   intervalDuration = 200;
   updateScoreDisplay();
+};
+
+const headBodyCollision = () => {
+  const head = snakeSegments[0];
+  const body = snakeSegments.slice(1);
+
+  for (const segment of body) {
+    if (head.x === segment.x && head.y === segment.y) {
+      console.log("head hit body");
+    }
+  }
+  return false;
 };

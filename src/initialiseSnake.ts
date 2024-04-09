@@ -1,27 +1,6 @@
 import { keys } from "./keys";
 import { startSnakeMovement, resetScore } from "./movement";
 
-export const initialiseSnake = (numColumns: number) => {
-  const initialX = 0;
-  const initialY = 3;
-  const snakeLength = 3;
-  const snakeSegments = [];
-
-  for (let i = 0; i < snakeLength; i++) {
-    snakeSegments.push({ x: initialX + i, y: initialY });
-  }
-
-  const gridCells = document.querySelectorAll(".gridCell");
-
-  snakeSegments.forEach((segment) => {
-    const cellIndex = segment.y * numColumns + segment.x;
-    const cell = gridCells[cellIndex] as HTMLElement;
-    cell.classList.add("snakeSegment");
-  });
-
-  handleSpaceKey();
-};
-
 export const handleSpaceKey = () => {
   document.addEventListener("keydown", (event: KeyboardEvent) => {
     switch (event.keyCode) {
