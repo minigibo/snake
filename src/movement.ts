@@ -5,6 +5,7 @@ let intervalId: number | null = null;
 let currentDirection: keys | null = null;
 let snakeSegments: { x: number; y: number }[] = [];
 let numColumns: number;
+let numRows: number;
 let score = 0;
 let intervalDuration = 200;
 
@@ -93,6 +94,17 @@ const moveSnake = () => {
       newHead.y += 1;
       break;
   }
+
+  if (
+    newHead.x < 0 ||
+    newHead.x >= numColumns ||
+    newHead.y < 0 ||
+    newHead.y >= numRows
+  ) {
+    boundaryHit();
+    return;
+  }
+
   const fruitPos = fruitPosition();
   if (fruitPos && newHead.x === fruitPos.x && newHead.y === fruitPos.y) {
     snakeSegments.unshift({ x: fruitPos.x, y: fruitPos.y });
@@ -188,6 +200,19 @@ const gameEnded = () => {
     playDiv.style.display = "flex";
     playDiv.style.flexDirection = "column";
     playDiv.textContent = `Snake-ception achieved! Your score: ${score}`;
+    clearInterval(intervalId!);
+    document.addEventListener("keydown", handleSpaceKey);
+    intervalDuration = 200;
+    playDiv.insertAdjacentHTML("beforeend", "<p>Press space to play again</p>");
+  }
+};
+
+const boundaryHit = () => {
+  const playDiv = document.querySelector(".play") as HTMLElement;
+  if (playDiv) {
+    playDiv.style.display = "flex";
+    playDiv.style.flexDirection = "column";
+    playDiv.textContent = `Splatttt! Your score: ${score}`;
     clearInterval(intervalId!);
     document.addEventListener("keydown", handleSpaceKey);
     intervalDuration = 200;
