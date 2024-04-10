@@ -13,7 +13,7 @@ export const handleSpaceKey = () => {
   document.addEventListener("keydown", (event: KeyboardEvent) => {
     switch (event.keyCode) {
       case keys.SPACE:
-        startGame(22, keys.RIGHT);
+        startGame(22, 15, keys.RIGHT);
         resetScore();
         document.removeEventListener("keydown", handleSpaceKey);
         break;
@@ -21,20 +21,29 @@ export const handleSpaceKey = () => {
   });
 };
 
-const startGame = (numColumns: number, initialDirection: keys) => {
+const startGame = (
+  numColumns: number,
+  numRows: number,
+  initialDirection: keys
+) => {
   const playDiv = document.querySelector(".play") as HTMLElement;
   if (playDiv) {
     playDiv.style.display = "none";
-    startSnakeMovement(initialDirection, numColumns);
+    startSnakeMovement(initialDirection, numColumns, numRows);
   }
 };
 
-export const startSnakeMovement = (initialDirection: keys, columns: number) => {
+export const startSnakeMovement = (
+  initialDirection: keys,
+  columns: number,
+  rows: number
+) => {
   if (intervalId !== null) {
     clearInterval(intervalId);
   }
   currentDirection = initialDirection;
   numColumns = columns;
+  numRows = rows;
 
   snakeSegments = [];
 
