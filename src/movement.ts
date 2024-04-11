@@ -133,12 +133,18 @@ const updateSnakeDisplay = () => {
   const gridCells = document.querySelectorAll(".gridCell");
   const numColumns = window.innerWidth >= 768 ? 22 : 10;
 
-  gridCells.forEach((cell) => cell.classList.remove("snakeSegment"));
+  gridCells.forEach((cell) =>
+    cell.classList.remove("snakeSegment", "snakeHead")
+  );
 
-  snakeSegments.forEach((segment) => {
+  snakeSegments.forEach((segment, index) => {
     const cellIndex = segment.y * numColumns + segment.x;
     const cell = gridCells[cellIndex] as HTMLElement;
     cell.classList.add("snakeSegment");
+
+    if (index === 0) {
+      cell.classList.add("snakeHead");
+    }
   });
 };
 
