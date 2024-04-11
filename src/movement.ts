@@ -4,16 +4,21 @@ import { addFruit } from "./fruit";
 let intervalId: number | null = null;
 let currentDirection: keys | null = null;
 let snakeSegments: { x: number; y: number }[] = [];
-let numColumns: number;
-let numRows: number;
 let score = 0;
 let intervalDuration = 200;
+
+const getGridDimensions = () => {
+  return {
+    numColumns: window.innerWidth >= 768 ? 22 : 10,
+    numRows: window.innerWidth >= 768 ? 15 : 20,
+  };
+};
 
 export const handleSpaceKey = () => {
   document.addEventListener("keydown", (event: KeyboardEvent) => {
     switch (event.keyCode) {
       case keys.SPACE:
-        startGame(22, 15, keys.RIGHT);
+        startGame(keys.RIGHT);
         resetScore();
         document.removeEventListener("keydown", handleSpaceKey);
         break;
@@ -21,30 +26,19 @@ export const handleSpaceKey = () => {
   });
 };
 
-const startGame = (
-  numColumns: number,
-  numRows: number,
-  initialDirection: keys
-) => {
+const startGame = (initialDirection: keys) => {
   const playDiv = document.querySelector(".play") as HTMLElement;
   if (playDiv) {
     playDiv.style.display = "none";
-    startSnakeMovement(initialDirection, numColumns, numRows);
+    startSnakeMovement(initialDirection);
   }
 };
 
-export const startSnakeMovement = (
-  initialDirection: keys,
-  columns: number,
-  rows: number
-) => {
+export const startSnakeMovement = (initialDirection: keys) => {
   if (intervalId !== null) {
     clearInterval(intervalId);
   }
   currentDirection = initialDirection;
-  numColumns = columns;
-  numRows = rows;
-
   snakeSegments = [];
 
   const initialX = 0;
@@ -86,6 +80,7 @@ const handleKeyPress = (event: KeyboardEvent) => {
 };
 
 const moveSnake = () => {
+  const { numColumns, numRows } = getGridDimensions();
   const head = snakeSegments[0];
   let newHead = { x: head.x, y: head.y };
 
@@ -119,7 +114,7 @@ const moveSnake = () => {
     snakeSegments.unshift({ x: fruitPos.x, y: fruitPos.y });
     removeFruit();
     increaseScore();
-    addFruit(numColumns);
+    addFruit();
     snakeSegments.unshift(newHead);
     snakeSegments.pop();
     updateSnakeDisplay();
@@ -136,6 +131,8 @@ const moveSnake = () => {
 
 const updateSnakeDisplay = () => {
   const gridCells = document.querySelectorAll(".gridCell");
+  const numColumns = window.innerWidth >= 768 ? 22 : 10;
+
   gridCells.forEach((cell) => cell.classList.remove("snakeSegment"));
 
   snakeSegments.forEach((segment) => {

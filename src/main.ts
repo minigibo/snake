@@ -5,5 +5,5 @@ import { fruitPosition, handleSpaceKey } from "./movement";
 
 createGrid();
 handleSpaceKey();
-addFruit(22);
+addFruit();
 fruitPosition();

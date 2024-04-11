@@ -1,4 +1,4 @@
-export const addFruit = (numColumns: number) => {
+export const addFruit = () => {
   const gridCells = document.querySelectorAll(".gridCell");
 
   const availableCells: number[] = [];
@@ -16,6 +16,9 @@ export const addFruit = (numColumns: number) => {
   fruitImage.src = "./Banana.png";
   const fruitCell = gridCells[randomCellIndex] as HTMLElement;
   fruitCell.classList.add("fruit");
+
+  const numColumns = window.innerWidth >= 768 ? 22 : 10;
+
   fruitCell.appendChild(fruitImage);
   fruitCell.setAttribute("data-x", (randomCellIndex % numColumns).toString());
   fruitCell.setAttribute(
