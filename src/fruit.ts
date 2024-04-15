@@ -13,7 +13,7 @@ export const addFruit = () => {
     availableCells[Math.floor(Math.random() * availableCells.length)];
 
   const fruitImage = document.createElement("img");
-  fruitImage.src = "/Banana.png";
+  fruitImage.src = "./Banana.png";
   const fruitCell = gridCells[randomCellIndex] as HTMLElement;
   fruitCell.classList.add("fruit");
 
